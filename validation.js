@@ -105,9 +105,12 @@ async function registerUser(name, email, password){
 
         window.location.href = "login.html"
 
-    } catch(err){
-        errorMessage.innerText = "Something went wrong. Please try again."
-    }
+    } catch (err) {
+    console.error("REGISTER ERROR:", err)
+    res.status(500).json({
+        error: err.message
+    })
+}
 
 }
 
