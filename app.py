@@ -106,6 +106,9 @@ def logout():
     return jsonify({"message": "Logged out"}), 200
 
 
+# Initialize database when Flask starts
+init_db()
+
+
 if __name__ == "__main__":
-    init_db()
     app.run(debug=True, port=5000)
