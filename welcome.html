@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="wrapper">
+        <h1>Welcome</h1>
+        <p id="welcome-message" style="margin-bottom: 30px;"> </p>
+        <button id="logout-btn" type="button">Logout</button>
+    </div>
+
+    <script>
+        fetch("/api/me")
+            .then(res => {
+                if(!res.ok){ throw new Error("not logged in") }
+                return res.json()
+            })
+            .then(data => {
+                document.getElementById("welcome-message").innerText = "Hello, " + data.name + " (" + data.email + ")"
+            })
+            .catch(() => {
+                window.location.href = "login.html"
+            })
+
+        document.getElementById("logout-btn").addEventListener("click", () => {
+            fetch("/api/logout", { method: "POST" }).then(() => {
+                window.location.href = "login.html"
+            })
+        })
+    </script>
+</body>
+</html>
